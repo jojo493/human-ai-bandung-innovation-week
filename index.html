@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HUMAN + AI — The Future of Digital Product Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HUMAN + AI — Bandung Innovation Week 2026
+   Dynamic Editorial / Modern Brutalist, Human-Centered
+   Canvas 1920x1080 · 12 slides
+   ============================================================ */
+:root{
+  --ink:#101310;          /* Dark Charcoal */
+  --lime:#A6F542;         /* Lime Green */
+  --paper:#F2F4EF;        /* Off White */
+  --gray:#747D73;         /* Muted Gray (large secondary text) */
+  --gray-deep:#59625A;    /* derived: small text on paper (AA) */
+  --gray-bright:#9AA69B;  /* derived: secondary text on ink (AA) */
+  --hairline-d:rgba(242,244,239,.18);
+  --hairline-l:rgba(16,19,16,.22);
+  --motion-duration:400ms;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:#000;
+  font-family:'Archivo',Helvetica,Arial,sans-serif;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* ---------- stage & scaling ---------- */
+#stage-wrap{position:fixed;inset:0;background:#000;overflow:hidden}
+#stage{
+  width:1920px;height:1080px;position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(1);
+  background:var(--ink);
+}
+/* ---------- slides ---------- */
+.slide{
+  position:absolute;inset:0;width:1920px;height:1080px;
+  visibility:hidden;opacity:0;z-index:1;
+}
+.slide.is-active{visibility:visible;opacity:1;z-index:3;transition:opacity var(--fade,400ms) var(--ease)}
+.slide.is-leaving{visibility:visible;opacity:0;z-index:2;pointer-events:none;transition:opacity var(--fade,400ms) var(--ease)}
+.slide.dark{background:var(--ink);color:var(--paper)}
+.slide.light{background:var(--paper);color:var(--ink)}
+.pad{position:absolute;inset:0;padding:96px 120px 120px}
+/* typography */
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:500;letter-spacing:.32em;text-transform:uppercase}
+.dark .eyebrow{color:var(--gray-bright)}
+.light .eyebrow{color:var(--gray-deep)}
+.disp{font-family:'Archivo Black','Archivo',Helvetica,Arial,sans-serif;font-weight:400;line-height:.98;letter-spacing:-.01em}
+/* ---------- reveal system ---------- */
+.rv{opacity:0;transform:translateY(12px);
+  transition:opacity var(--dur,420ms) var(--ease) var(--d,0ms),transform var(--dur,420ms) var(--ease) var(--d,0ms)}
+.rv-l{transform:translateX(-16px)}
+.rv-r{transform:translateX(16px)}
+.rv-d{transform:translateY(20px)}
+.slide.is-active .rv{opacity:1;transform:translate(0,0)}
+/* clip reveal (wipe) */
+.rv-clip{opacity:1;clip-path:inset(0 100% 0 0);
+  transition:clip-path var(--dur,650ms) var(--ease) var(--d,0ms)}
+.rv-clip-w{opacity:1;clip-path:inset(0 0 0 100%);
+  transition:clip-path var(--dur,700ms) var(--ease) var(--d,0ms)}
+.slide.is-active .rv-clip,.slide.is-active .rv-clip-w{clip-path:inset(0 0 0 0)}
+/* scale-x fill (lines, bars) */
+.fill-x{transform:scaleX(0);transform-origin:left center;
+  transition:transform var(--dur,800ms) var(--ease) var(--d,0ms)}
+.slide.is-active .fill-x{transform:scaleX(1)}
+/* photo treatment */
+.ph{filter:grayscale(1) contrast(1.07) brightness(.97);object-fit:cover;display:block}
+.grain{position:relative}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:overlay;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="180" height="180" filter="url(%23n)"/></svg>')}
+/* ken burns / slow zoom */
+.kb{transform:scale(1.03)}
+.slide.is-active .kb{animation:kbZoom var(--kbd,16s) linear both}
+@keyframes kbZoom{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.065) translate(-1.2%,-.8%)}}
+/* ============================================================
+   SLIDE 01 — OPENING (dark, abstract statement)
+   ============================================================ */
+#s1 .photo-panel{position:absolute;top:0;right:0;width:46%;height:100%;overflow:hidden}
+#s1 .photo-panel img{width:100%;height:100%}
+#s1 .photo-panel::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,var(--ink) 0%,rgba(16,19,16,.25) 26%,rgba(16,19,16,0) 60%)}
+#s1 .content{position:absolute;left:120px;top:0;bottom:120px;width:52%;display:flex;flex-direction:column;justify-content:center;z-index:2}
+#s1 .h1{font-size:196px;line-height:.94}
+#s1 .h1 .plus{color:var(--lime)}
+#s1 .sub-en{margin-top:44px;font-size:37px;font-weight:600;letter-spacing:.045em;color:var(--paper)}
+#s1 .sub-id{margin-top:16px;font-size:25px;color:var(--gray-bright);font-weight:400}
+#s1 .identity{position:absolute;left:120px;bottom:96px;z-index:2}
+#s1 .identity .rule{width:64px;height:5px;background:var(--lime);margin-bottom:22px}
+#s1 .identity .name{font-size:23px;font-weight:700;letter-spacing:.06em}
+#s1 .identity .event{margin-top:8px;font-size:16px;letter-spacing:.28em;color:var(--gray-bright)}
+/* ============================================================
+   SLIDE 02 — THE SHIFT (light, split editorial)
+   ============================================================ */
+#s2 .strip{position:absolute;left:0;top:0;bottom:0;width:372px;overflow:hidden}
+#s2 .strip img{width:100%;height:100%}
+#s2 .strip .edge{position:absolute;top:0;bottom:0;right:0;width:6px;background:var(--lime)}
+#s2 .content{position:absolute;left:468px;right:120px;top:88px;bottom:110px;display:flex;flex-direction:column}
+#s2 .h1{font-size:97px;line-height:1.0;color:var(--ink)}
+#s2 .lead{margin-top:22px;font-size:29px;color:var(--gray-deep)}
+#s2 .cols{margin-top:56px;position:relative}
+#s2 .grid{display:grid;grid-template-columns:1fr 96px 1fr;row-gap:26px;align-items:center}
+#s2 .colhead{font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;letter-spacing:.22em}
+#s2 .c-tr .colhead{color:var(--gray-deep)}
+#s2 .c-ai .colhead{color:var(--ink)}
+#s2 .step{font-size:44px;font-weight:700}
+#s2 .c-tr .step{color:var(--gray)}
+#s2 .c-ai .step{color:var(--ink)}
+#s2 .arrowcell{text-align:center;font-size:34px;color:var(--lime);font-weight:700}
+#s2 .hl-slot{position:relative;height:6px;margin-top:30px}
+#s2 .hl-bar{position:absolute;right:0;width:calc(50% - 48px);height:6px;background:var(--lime);
+  transform:translateX(-118%)}
+.slide.is-active#s2 .hl-bar{transform:translateX(0);transition:transform 520ms var(--ease) 620ms}
+#s2 .compareline{height:2px;background:var(--ink);margin-top:26px;opacity:.9}
+#s2 .kicker{margin-top:auto;font-size:41px;color:var(--ink)}
+#s2 .kicker .arr{color:var(--lime);margin-right:20px;font-weight:700}
+#s2 .kicker b{font-weight:800}
+/* ============================================================
+   SLIDE 03 — PRODUCT THINKING (dark, typography-led)
+   ============================================================ */
+#s3 .bgimg{position:absolute;top:0;right:0;width:44%;height:100%;overflow:hidden}
+#s3 .bgimg img{width:100%;height:100%}
+#s3 .bgimg::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,var(--ink) 0%,rgba(16,19,16,.55) 34%,rgba(16,19,16,.12) 72%,rgba(16,19,16,.38) 100%)}
+.slide.is-active#s3 .bgimg img{animation:parY 1.5s var(--ease) both}
+@keyframes parY{from{transform:translateY(16px) scale(1.02)}to{transform:translateY(0) scale(1)}}
+#s3 .content{position:absolute;left:120px;top:0;bottom:120px;width:56%;display:flex;flex-direction:column;justify-content:center;z-index:2}
+#s3 .l1{font-size:108px;color:var(--paper)}
+#s3 .l2{font-size:166px;color:var(--lime);margin:6px 0}
+#s3 .l3{font-size:108px;color:var(--paper)}
+#s3 .lead{margin-top:44px;font-size:30px;color:var(--gray-bright)}
+/* ============================================================
+   SLIDE 04 — COLLABORATION (light, comparison)
+   ============================================================ */
+#s4 .content{position:absolute;inset:0;padding:88px 120px 110px;display:flex;flex-direction:column}
+#s4 .q1{font-size:56px;color:var(--gray);margin-top:18px}
+#s4 .q2{font-size:128px;color:var(--ink);margin-top:8px}
+#s4 .q2 .plus{color:var(--lime)}
+#s4 .duo{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;column-gap:170px;position:relative}
+#s4 .plusmark{position:absolute;left:50%;top:22px;transform:translateX(-50%);
+  font-family:'Archivo Black',sans-serif;font-size:64px;color:var(--lime);z-index:2}
+#s4 .colhead{font-size:40px;font-weight:800;letter-spacing:.04em;padding-bottom:18px;border-bottom:3px solid var(--ink)}
+#s4 .rows{margin-top:26px;display:flex;flex-direction:column;gap:24px}
+#s4 .row{display:flex;align-items:center;gap:20px;font-size:37px;font-weight:600}
+#s4 .row i{width:16px;height:16px;flex:none}
+#s4 .col-h .row i{background:var(--ink)}
+#s4 .col-a .row i{background:var(--lime);outline:2px solid var(--ink)}
+#s4 .kicker{margin-top:auto;display:flex;align-items:baseline;gap:24px}
+#s4 .kicker .t{font-size:46px;font-weight:800;color:var(--ink)}
+#s4 .kicker .bar{width:110px;height:10px;background:var(--lime);align-self:center}
+/* ============================================================
+   SLIDE 05 — PRODUCT TEAM (light, modular grid)
+   ============================================================ */
+#s5 .content{position:absolute;inset:0;padding:88px 120px 110px;display:flex;flex-direction:column}
+#s5 .head{display:grid;grid-template-columns:1fr 560px;gap:64px;align-items:start}
+#s5 .h1{font-size:86px;color:var(--ink);line-height:1.02}
+#s5 .photo{position:relative;width:560px;height:352px;overflow:hidden}
+#s5 .photo img{width:100%;height:100%}
+#s5 .photo .cap{position:absolute;left:0;bottom:0;background:var(--ink);color:var(--paper);
+  font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.22em;padding:9px 16px}
+#s5 .mods{margin-top:66px;position:relative}
+#s5 .connect{position:absolute;left:0;right:0;top:34px;height:3px;background:var(--lime)}
+#s5 .modgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;position:relative}
+#s5 .mod{background:var(--paper);border:3px solid var(--ink);padding:34px 34px 30px;min-height:270px}
+#s5 .node{width:18px;height:18px;border-radius:50%;background:var(--lime);outline:3px solid var(--ink);margin:-45px 0 26px}
+#s5 .role{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;letter-spacing:.24em;color:var(--gray-deep)}
+#s5 .contrib{font-size:58px;font-weight:800;color:var(--ink);margin-top:16px}
+#s5 .focus{font-size:24px;color:var(--gray-deep);margin-top:12px}
+#s5 .ai-label{margin-top:auto;align-self:flex-start;display:flex;align-items:center;gap:0}
+#s5 .ai-label .tick{width:14px;height:52px;background:var(--lime)}
+#s5 .ai-label .txt{background:var(--ink);color:var(--paper);font-family:'IBM Plex Mono',monospace;
+  font-size:21px;letter-spacing:.26em;padding:14px 26px}
+/* ============================================================
+   SLIDE 06 — PRODUCT WORKFLOW (dark, process timeline)
+   ============================================================ */
+#s6 .photo{position:absolute;top:0;right:0;width:640px;height:430px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(45deg,rgba(0,0,0,0) 0%,#000 46%);
+  mask-image:linear-gradient(45deg,rgba(0,0,0,0) 0%,#000 46%)}
+#s6 .photo img{width:100%;height:100%}
+#s6 .content{position:absolute;inset:0;padding:88px 120px 110px;display:flex;flex-direction:column;z-index:2}
+#s6 .h1{font-size:112px;color:var(--paper)}
+#s6 .lead{margin-top:34px;display:flex;gap:28px;font-size:44px;font-weight:800}
+#s6 .lead .a{color:var(--paper)}
+#s6 .lead .b{color:var(--lime)}
+#s6 .flow{margin-top:auto;position:relative;padding-top:8px}
+#s6 .track{position:absolute;left:7.5px;right:calc(20% - 7.5px);top:15px;height:3px;background:rgba(242,244,239,.16)}
+#s6 .progress{position:absolute;left:7.5px;right:calc(20% - 7.5px);top:15px;height:3px;background:var(--lime)}
+#s6 .stages{display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+#s6 .stage{opacity:.32;transition:opacity 380ms var(--ease) var(--d,0ms)}
+.slide.is-active#s6 .stage{opacity:1}
+#s6 .dot{width:15px;height:15px;border-radius:50%;background:var(--ink);outline:3px solid var(--gray-bright);margin-bottom:26px}
+#s6 .stage.on .dot{outline-color:var(--lime);background:var(--lime)}
+#s6 .num{font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--lime);letter-spacing:.2em;margin-bottom:14px}
+#s6 .name{font-size:41px;font-weight:800;color:var(--paper);letter-spacing:.01em}
+/* ============================================================
+   SLIDE 07 — RESEARCH (light, split editorial)
+   ============================================================ */
+#s7 .content{position:absolute;inset:0;padding:88px 120px 110px;display:flex;flex-direction:column}
+#s7 .h1{font-size:93px;color:var(--ink)}
+#s7 .diagram{margin-top:64px;display:grid;grid-template-columns:1fr 210px 1fr;align-items:stretch;gap:0}
+#s7 .panel{border:3px solid var(--ink);padding:30px 34px;min-height:370px;position:relative;overflow:hidden}
+#s7 .plabel{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;letter-spacing:.22em;color:var(--gray-deep);margin-bottom:26px}
+#s7 .chip{height:56px;background:#E2E5DE;border-left:6px solid var(--gray);margin-bottom:20px;
+  display:flex;align-items:center;padding:0 18px;
+  font-family:'IBM Plex Mono',monospace;font-size:17px;letter-spacing:.14em;color:var(--gray-deep)}
+#s7 .insight{border:2px solid var(--ink);background:var(--paper);height:68px;margin-bottom:20px;
+  display:flex;align-items:center;gap:16px;padding:0 20px;font-size:23px;font-weight:700;color:var(--ink);letter-spacing:.02em}
+#s7 .insight i{width:13px;height:13px;background:var(--lime);outline:2px solid var(--ink);flex:none}
+.slide.is-active#s7 .chip{animation:chipMove 900ms var(--ease) both;animation-delay:var(--d,0ms)}
+@keyframes chipMove{
+  0%{opacity:0;transform:translateX(-28px)}
+  30%{opacity:1;transform:translateX(-28px)}
+  100%{opacity:1;transform:translateX(0)}
+}
+#s7 .mid{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px}
+#s7 .mid .line{width:100%;height:3px;background:var(--lime);position:relative}
+#s7 .mid .line::after{content:"";position:absolute;right:-2px;top:-8px;border-left:16px solid var(--lime);
+  border-top:10px solid transparent;border-bottom:10px solid transparent}
+#s7 .mid .tag{font-family:'IBM Plex Mono',monospace;font-size:16px;letter-spacing:.2em;color:var(--gray-deep)}
+#s7 .caption{margin-top:auto;display:flex;gap:26px;font-size:33px}
+#s7 .caption .a{font-weight:600;color:var(--ink)}
+#s7 .caption .a em{font-style:normal;box-shadow:inset 0 -14px 0 var(--lime)}
+#s7 .caption .b{color:var(--gray-deep);font-weight:600}
+/* ============================================================
+   SLIDE 08 — DESIGN (dark, full-bleed + UI)
+   ============================================================ */
+#s8 .bg{position:absolute;inset:0;overflow:hidden}
+#s8 .bg img{width:100%;height:100%}
+#s8 .bg::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(16,19,16,.95) 0%,rgba(16,19,16,.86) 42%,rgba(16,19,16,.45) 100%)}
+#s8 .content{position:absolute;inset:0;padding:88px 120px 110px;display:flex;flex-direction:column;z-index:2}
+#s8 .h1{font-size:114px;color:var(--paper);max-width:1250px}
+#s8 .labels{margin-top:40px;display:flex;align-items:center;gap:22px;
+  font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;letter-spacing:.24em;color:var(--lime)}
+#s8 .labels .sep{color:var(--paper);opacity:.55}
+#s8 .showcase{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:56px}
+#s8 .cards{display:flex;gap:34px}
+#s8 .uicard{width:320px;background:var(--paper);padding:18px 18px 16px;color:var(--ink);
+  border:2px solid var(--ink)}
+#s8 .uicard .bar{height:12px;background:var(--ink);margin-bottom:5px;display:flex;align-items:center}
+#s8 .uicard .bar i{display:block;height:100%;width:38%;background:var(--lime)}
+#s8 .uiwrap{position:relative;display:flex;flex-direction:column;gap:20px}
+#s8 .uicard .tag{font-family:'IBM Plex Mono',monospace;
+  font-size:17px;font-weight:600;letter-spacing:.32em;color:var(--lime);line-height:1}
+#s8 .frame{margin-top:14px;height:182px;background:#FAFBF7;border:2px solid var(--ink);position:relative;overflow:hidden}
+
+/* explore: variant thumbnails with mini wireframe content */
+#s8 .thumbs{position:absolute;inset:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+#s8 .thumbs i{background:#EEF0EA;border:1.5px solid var(--ink);position:relative;overflow:hidden}
+#s8 .thumbs i::before{content:"";position:absolute;left:6px;right:6px;top:6px;height:6px;background:var(--gray)}
+#s8 .thumbs i::after{content:"";position:absolute;left:6px;right:14px;top:18px;height:4px;background:#C3C9BE;
+  box-shadow:0 9px 0 #C3C9BE,0 18px 0 #C3C9BE}
+#s8 .thumbs i.hl{outline:3px solid var(--lime);outline-offset:-3px;background:#F4F8EC}
+#s8 .thumbs i.hl::before{background:var(--ink)}
+#s8 .thumbs i.hl::after{background:var(--lime);box-shadow:0 9px 0 var(--lime),0 18px 0 #C3C9BE}
+
+/* create: canvas blocks */
+#s8 .canvas{position:absolute;inset:12px}
+#s8 .canvas i{position:absolute;background:#E4E7DF;border:1.5px solid var(--ink)}
+#s8 .canvas .c1{left:0;top:0;width:56%;height:32%;background:#EEF0EA}
+#s8 .canvas .c1::after{content:"";position:absolute;left:8px;right:8px;top:9px;height:6px;background:var(--ink)}
+#s8 .canvas .c2{left:0;top:40%;width:36%;height:26%;background:var(--lime)}
+#s8 .canvas .c2::after{content:"";position:absolute;left:8px;right:14px;top:9px;height:5px;background:var(--ink)}
+#s8 .canvas .c3{left:64%;top:0;width:36%;height:66%;background:#EEF0EA}
+#s8 .canvas .c3::after{content:"";position:absolute;left:8px;right:8px;top:9px;height:5px;background:var(--gray);
+  box-shadow:0 11px 0 #C3C9BE,0 22px 0 #C3C9BE}
+#s8 .canvas .c4{left:0;top:74%;width:100%;height:26%;background:#EEF0EA}
+#s8 .canvas .c4::after{content:"";position:absolute;left:8px;right:40%;top:9px;height:5px;background:var(--gray)}
+
+/* validate: check rows + progress */
+#s8 .checks{position:absolute;left:12px;right:12px;top:12px;display:flex;flex-direction:column;gap:8px}
+#s8 .checks i{display:flex;align-items:center;gap:11px;height:28px;background:#EAEDE6;border:1.5px solid var(--ink);
+  padding-left:2px}
+#s8 .checks i::before{content:"";width:12px;height:12px;margin-left:9px;background:var(--ink);flex:none}
+#s8 .checks i::after{content:"";height:5px;flex:1;background:#C3C9BE}
+#s8 .checks i.ok::before{background:var(--lime);outline:2px solid var(--ink)}
+#s8 .checks i.ok::after{background:var(--ink)}
+#s8 .checks i:first-child::after{background:var(--ink)}
+/* validate progress bar */
+#s8 .vprog{position:absolute;left:12px;right:12px;bottom:12px;height:9px;background:#DDE1D8;border:1.5px solid var(--ink)}
+#s8 .vprog i{display:block;height:100%;width:75%;background:var(--lime)}
+#s8 .vprog::after{content:"75%";position:absolute;right:0;top:-19px;font-family:'IBM Plex Mono',monospace;
+  font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--ink)}
+
+#s8 .caption{max-width:580px;font-size:28px;line-height:1.6;letter-spacing:.01em;color:var(--gray-bright);
+  background:var(--ink);border-left:6px solid var(--lime);padding:26px 30px}
+#s8 .caption b{color:var(--paper);font-weight:600}
+/* ============================================================
+   SLIDE 09 — CASE STUDY (light, modular grid)
+   ============================================================ */
+#s9 .content{position:absolute;inset:0;padding:80px 120px 104px;display:flex;flex-direction:column}
+#s9 .head{display:grid;grid-template-columns:1fr 590px;gap:70px;align-items:start}
+#s9 .h1{font-size:84px;color:var(--ink);line-height:1.02}
+#s9 .sub{margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:22px;color:var(--gray-deep);letter-spacing:.06em}
+#s9 .photo{position:relative;width:590px;height:392px;overflow:hidden}
+#s9 .photo img{width:100%;height:100%}
+#s9 .journey{margin-top:52px}
+#s9 .jlabel{display:flex;align-items:baseline;gap:26px;flex-wrap:nowrap}
+#s9 .jlabel .lb{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;letter-spacing:.24em;color:var(--gray-deep);flex:none}
+#s9 .jsteps{font-size:35px;font-weight:800;color:var(--ink);white-space:nowrap}
+#s9 .jsteps .a{color:var(--lime);-webkit-text-stroke:1.5px var(--ink);margin:0 10px}
+#s9 .jtrack{margin-top:18px;height:3px;background:rgba(16,19,16,.15);position:relative}
+#s9 .jprog{position:absolute;inset:0;background:var(--ink)}
+#s9 .cards{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+#s9 .card{border-top:5px solid var(--ink);padding-top:20px;min-height:238px}
+#s9 .card .n{font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--gray-deep);letter-spacing:.2em}
+#s9 .card .tp{font-size:27px;font-weight:700;color:var(--ink);margin-top:12px;line-height:1.18}
+#s9 .card .pp{font-size:20px;color:var(--gray-deep);margin-top:14px;line-height:1.4}
+#s9 .bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end}
+#s9 .kick{display:flex;align-items:center;gap:22px}
+#s9 .kick .bar{width:14px;height:44px;background:var(--lime);outline:2px solid var(--ink)}
+#s9 .kick .t{font-size:37px;font-weight:800;color:var(--ink)}
+#s9 .disc{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.1em;color:var(--gray-deep);text-align:right}
+/* ============================================================
+   SLIDE 10 — SOLUTION EXPLORATION (light, before-after)
+   ============================================================ */
+#s10 .content{position:absolute;inset:0;padding:88px 120px 110px;display:flex;flex-direction:column}
+#s10 .h1{font-size:96px;color:var(--ink)}
+#s10 .duo{margin-top:58px;display:grid;grid-template-columns:1fr 120px 1fr;align-items:stretch}
+#s10 .panel{border:3px solid var(--ink);padding:34px 40px;position:relative}
+#s10 .phead{font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;letter-spacing:.22em}
+#s10 .before .phead{color:var(--gray-deep)}
+#s10 .after .phead{color:var(--ink)}
+#s10 .big{font-family:'Archivo Black',sans-serif;font-size:124px;line-height:1;margin:14px 0 8px}
+#s10 .before .big{color:var(--gray)}
+#s10 .after .big{color:var(--ink)}
+#s10 .steps{margin-top:6px}
+#s10 .step{display:flex;gap:18px;align-items:baseline;padding:11px 0;border-bottom:1.5px solid rgba(16,19,16,.14)}
+#s10 .step:last-child{border-bottom:none}
+#s10 .step .n{font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--gray-deep);flex:none}
+#s10 .step .t{font-size:27px;font-weight:600}
+#s10 .before .step .t{color:var(--gray-deep)}
+#s10 .after .step .t{color:var(--ink);font-size:31px}
+#s10 .midarrow{display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',sans-serif;
+  font-size:66px;color:var(--lime);-webkit-text-stroke:2.5px var(--ink)}
+#s10 .bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end}
+#s10 .kick{font-size:36px;font-weight:800;color:var(--ink)}
+#s10 .kick em{font-style:normal;box-shadow:inset 0 -13px 0 var(--lime)}
+#s10 .disc{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.1em;color:var(--gray-deep);text-align:right}
+/* ============================================================
+   SLIDE 11 — THE HUMAN ROLE (dark, typography editorial)
+   ============================================================ */
+#s11 .photo{position:absolute;top:0;right:0;bottom:0;width:400px;overflow:hidden}
+#s11 .photo img{width:100%;height:100%}
+#s11 .photo::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,var(--ink) 0%,rgba(16,19,16,.3) 45%,rgba(16,19,16,.1) 100%)}
+#s11 .content{position:absolute;left:120px;top:0;bottom:120px;width:1150px;display:flex;flex-direction:column;z-index:2}
+#s11 .h1{font-size:96px;color:var(--paper)}
+#s11 .rows{margin-top:56px;display:flex;flex-direction:column}
+#s11 .hr-row{display:flex;align-items:baseline;justify-content:space-between;gap:40px;
+  padding:27px 0;border-bottom:2px solid var(--hairline-d)}
+#s11 .hr-row:first-child{border-top:2px solid var(--hairline-d)}
+#s11 .word{font-family:'Archivo Black',sans-serif;font-size:66px;color:var(--paper);letter-spacing:.005em}
+.slide.is-active#s11 .word{animation:settle 1.5s var(--ease) both;animation-delay:var(--d,0ms)}
+@keyframes settle{0%{color:var(--lime)}62%{color:var(--lime)}100%{color:var(--paper)}}
+#s11 .meaning{font-size:24px;color:var(--gray-bright);text-align:right;max-width:430px}
+/* ============================================================
+   SLIDE 12 — CLOSING (dark, abstract statement)
+   ============================================================ */
+#s12 .bg{position:absolute;inset:0;overflow:hidden}
+#s12 .bg img{width:100%;height:100%}
+#s12 .bg::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(16,19,16,.94) 0%,rgba(16,19,16,.84) 48%,rgba(16,19,16,.36) 100%)}
+#s12 .content{position:absolute;left:120px;top:0;bottom:120px;width:70%;display:flex;flex-direction:column;justify-content:center;z-index:2}
+#s12 .l1{font-size:84px;color:var(--paper)}
+#s12 .l2{font-size:84px;color:var(--paper);margin-top:10px}
+#s12 .l2 b{font-weight:400;color:var(--ink);background:var(--lime);padding:0 16px}
+#s12 .lead{margin-top:46px;font-size:30px;color:var(--gray-bright)}
+#s12 .thanks{margin-top:52px;font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;
+  letter-spacing:.5em;color:var(--lime)}
+#s12 .identity{margin-top:26px}
+#s12 .identity .name{font-size:26px;font-weight:700;color:var(--paper)}
+#s12 .identity .event{margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:16px;letter-spacing:.26em;color:var(--gray-bright)}
+/* ============================================================
+   HUD / progress / notes / blackout
+   ============================================================ */
+#progress{position:fixed;top:0;left:0;height:4px;width:0;background:var(--lime);z-index:50;transition:width .45s var(--ease)}
+#hud{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:space-between;align-items:center;
+  padding:0 28px;height:56px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;letter-spacing:.14em;
+  color:var(--gray-bright);pointer-events:none;background:#000;
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
+body.hud-hidden #hud{opacity:0;transform:translateY(100%)}
+body.hud-hidden #progress{opacity:0}
+body[data-theme="light"] #hud{color:var(--gray-deep)}
+#hud .right{display:flex;align-items:center;gap:22px;pointer-events:auto}
+#hud .act{opacity:.85}
+#hud .num{font-weight:600}
+#hud button{background:none;border:1.5px solid currentColor;color:inherit;font-family:inherit;font-size:12.5px;
+  letter-spacing:.14em;padding:6px 13px;cursor:pointer;border-radius:0;transition:background .2s,color .2s}
+#hud button:hover{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+#notes{position:fixed;top:0;right:0;bottom:0;width:470px;z-index:60;background:#12160F;color:var(--paper);
+  border-left:1px solid #2A3126;padding:34px 34px 28px;transform:translateX(102%);
+  transition:transform .45s var(--ease);overflow-y:auto}
+#notes.open{transform:translateX(0)}
+#notes h3{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.24em;color:var(--lime);margin-bottom:6px}
+#notes .nt{font-size:24px;font-weight:700;margin-bottom:20px}
+#notes dl{font-size:16.5px;line-height:1.55}
+#notes dt{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.2em;color:var(--gray-bright);margin-top:18px}
+#notes dd{margin-top:6px;color:var(--paper)}
+#notes .status{margin-top:24px;border-left:4px solid var(--lime);background:rgba(166,245,66,.08);
+  padding:12px 16px;font-size:15px}
+#notes .keys{margin-top:26px;padding-top:18px;border-top:1px solid #2A3126;
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--gray-bright);letter-spacing:.08em}
+#blackout{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:70;transition:opacity .6s var(--ease)}
+#blackout.flash{opacity:1}
+/* click zones */
+.zone{position:fixed;top:0;bottom:56px;width:26%;z-index:30;cursor:pointer}
+#zoneL{left:0}#zoneR{right:0}
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;
+    animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0ms!important}
+  .rv,.rv-l,.rv-r,.rv-d{opacity:1!important;transform:none!important}
+  .rv-clip,.rv-clip-w{clip-path:none!important}
+  .fill-x{transform:scaleX(1)!important}
+  .kb{transform:none!important}
+  #s2 .hl-bar{transform:translateX(0)!important}
+  #s6 .stage{opacity:1!important}
+  #s7 .chip{opacity:1!important;transform:none!important;animation:none!important}
+  #s11 .word{color:var(--paper)!important;animation:none!important}
+}
+</style>
+</head>
+<body data-theme="dark">
+<div id="stage-wrap" aria-label="Presentasi HUMAN + AI">
+<div id="stage">
+
+<!-- ============ SLIDE 01 — OPENING ============ -->
+<section class="slide dark" id="s1" data-fade="400" data-act="ACT 01 · UNDERSTAND">
+  <div class="photo-panel grain">
+    <img class="ph kb" src="assets/01_abstract_concrete_curve.png" alt="">
+  </div>
+  <div class="content">
+    <div class="eyebrow rv" style="--d:0ms">OPENING — HUMAN + AI</div>
+    <h1 class="disp h1" style="margin-top:36px">
+      <span class="rv rv-d" style="--d:100ms;display:block">HUMAN</span>
+      <span class="rv rv-d" style="--d:260ms;display:block"><span class="plus">+</span> AI</span>
+    </h1>
+    <div class="sub-en rv" style="--d:420ms">THE FUTURE OF DIGITAL PRODUCT DEVELOPMENT</div>
+    <div class="sub-id rv" style="--d:520ms">Membangun Produk Digital melalui Kolaborasi Manusia dan AI</div>
+  </div>
+  <div class="identity">
+    <div class="rule fill-x" style="--dur:600ms;--d:600ms"></div>
+    <div class="name rv" style="--d:700ms">JULIANTO AHMAD NUGRAHA</div>
+    <div class="event mono rv" style="--d:780ms">BANDUNG INNOVATION WEEK 2026</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 02 — THE SHIFT ============ -->
+<section class="slide light" id="s2" data-fade="350" data-act="ACT 01 · UNDERSTAND">
+  <div class="strip grain"><img class="ph" src="assets/02_blurred_pedestrian_crossing.png" alt=""><div class="edge"></div></div>
+  <div class="content">
+    <div class="eyebrow rv">THE SHIFT</div>
+    <h1 class="disp h1" style="margin-top:26px"><span class="rv rv-d" style="--d:80ms;display:block">AI IS CHANGING</span><span class="rv rv-d" style="--d:160ms;display:block">HOW WE WORK.</span></h1>
+    <div class="lead rv" style="--d:260ms">Cara kita membangun produk digital sedang berubah.</div>
+    <div class="cols">
+      <div class="grid">
+        <div class="colhead c-tr">TRADITIONAL WORKFLOW</div><div></div><div class="colhead c-ai rv" style="--d:120ms">AI-ASSISTED WORKFLOW</div>
+        <div class="step c-tr rv" style="--d:200ms">Search</div><div class="arrowcell rv" style="--d:200ms">&#8594;</div><div class="step c-ai rv" style="--d:200ms">Analyze</div>
+        <div class="step c-tr rv" style="--d:320ms">Process</div><div class="arrowcell rv" style="--d:320ms">&#8594;</div><div class="step c-ai rv" style="--d:320ms">Explore</div>
+        <div class="step c-tr rv" style="--d:440ms">Create</div><div class="arrowcell rv" style="--d:440ms">&#8594;</div><div class="step c-ai rv" style="--d:440ms">Develop</div>
+      </div>
+      <div class="compareline fill-x" style="--dur:900ms;--d:300ms"></div>
+      <div class="hl-slot"><div class="hl-bar"></div></div>
+    </div>
+    <div class="kicker rv" style="--d:760ms"><span class="arr">&#8594;</span><b>THE WORKFLOW IS EVOLVING.</b></div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 03 — PRODUCT THINKING ============ -->
+<section class="slide dark" id="s3" data-fade="350" data-act="ACT 01 · UNDERSTAND">
+  <div class="bgimg grain"><img class="ph" src="assets/03_concrete_shadow_geometry.png" alt=""></div>
+  <div class="content">
+    <div class="eyebrow rv">PRODUCT THINKING</div>
+    <h1 class="disp" style="margin-top:34px">
+      <span class="l1 rv rv-d" style="--d:100ms;display:block">START WITH THE</span>
+      <span class="l2 disp rv-clip" style="--d:340ms;display:block">PROBLEM.</span>
+      <span class="l3 rv rv-d" style="--d:560ms;display:block">NOT THE TOOL.</span>
+    </h1>
+    <div class="lead rv" style="--d:740ms">Pahami kebutuhan manusia sebelum menentukan solusi.</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 04 — COLLABORATION ============ -->
+<section class="slide light" id="s4" data-fade="400" data-act="ACT 01 · UNDERSTAND">
+  <div class="content">
+    <div class="eyebrow rv">COLLABORATION</div>
+    <div class="disp q1 rv" style="--d:80ms">HUMAN VS AI?</div>
+    <div class="disp q2 rv rv-d" style="--d:180ms">WHY NOT HUMAN <span class="plus">+</span> AI?</div>
+    <div class="duo">
+      <div class="plusmark rv" style="--d:640ms">+</div>
+      <div class="col-h">
+        <div class="colhead rv-l rv" style="--d:280ms">HUMAN</div>
+        <div class="rows">
+          <div class="row rv rv-l" style="--d:360ms"><i></i>Empathy</div>
+          <div class="row rv rv-l" style="--d:460ms"><i></i>Context</div>
+          <div class="row rv rv-l" style="--d:560ms"><i></i>Judgment</div>
+          <div class="row rv rv-l" style="--d:660ms"><i></i>Responsibility</div>
+        </div>
+      </div>
+      <div class="col-a">
+        <div class="colhead rv-r rv" style="--d:280ms">AI</div>
+        <div class="rows">
+          <div class="row rv rv-r" style="--d:360ms"><i></i>Speed</div>
+          <div class="row rv rv-r" style="--d:460ms"><i></i>Analysis</div>
+          <div class="row rv rv-r" style="--d:560ms"><i></i>Exploration</div>
+          <div class="row rv rv-r" style="--d:660ms"><i></i>Assistance</div>
+        </div>
+      </div>
+    </div>
+    <div class="kicker rv" style="--d:860ms"><span class="bar fill-x" style="--dur:500ms"></span><span class="t">BETTER TOGETHER.</span></div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 05 — PRODUCT TEAM ============ -->
+<section class="slide light" id="s5" data-fade="400" data-act="ACT 01 · UNDERSTAND">
+  <div class="content">
+    <div class="eyebrow rv">PRODUCT TEAM</div>
+    <div class="head" style="margin-top:26px">
+      <h1 class="disp h1"><span class="rv rv-d" style="--d:80ms;display:block">ONE PRODUCT.</span><span class="rv rv-d" style="--d:180ms;display:block">MULTIPLE PERSPECTIVES.</span></h1>
+      <div class="photo grain rv" style="--d:300ms">
+        <img class="ph" src="assets/04_product_team_collaboration.png" alt="">
+        <div class="cap">PRODUCT TEAM</div>
+      </div>
+    </div>
+    <div class="mods">
+      <div class="connect fill-x" style="--dur:700ms;--d:420ms"></div>
+      <div class="modgrid">
+        <div class="mod rv rv-d" style="--d:280ms"><div class="node"></div>
+          <div class="role">BA</div><div class="contrib">Understand</div><div class="focus">Business needs</div></div>
+        <div class="mod rv rv-d" style="--d:420ms"><div class="node"></div>
+          <div class="role">DESIGNER</div><div class="contrib">Shape</div><div class="focus">User experience</div></div>
+        <div class="mod rv rv-d" style="--d:560ms"><div class="node"></div>
+          <div class="role">DEVELOPER</div><div class="contrib">Build</div><div class="focus">Technical solution</div></div>
+      </div>
+    </div>
+    <div class="ai-label rv" style="--d:780ms"><span class="tick"></span><span class="txt">AI SUPPORTS EVERY ROLE.</span></div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 06 — PRODUCT WORKFLOW ============ -->
+<section class="slide dark" id="s6" data-fade="400" data-act="ACT 02 · COLLABORATE">
+  <div class="photo grain"><img class="ph" src="assets/06_spiral_concrete_staircase.png" alt=""></div>
+  <div class="content">
+    <div class="eyebrow rv">PRODUCT WORKFLOW</div>
+    <h1 class="disp h1" style="margin-top:28px"><span class="rv rv-d" style="--d:80ms;display:block">FROM IDEA</span><span class="rv rv-d" style="--d:180ms;display:block">TO EXPERIENCE.</span></h1>
+    <div class="lead rv" style="--d:300ms"><span class="a">HUMANS LEAD.</span><span class="b">AI ASSISTS.</span></div>
+    <div class="flow">
+      <div class="track"></div>
+      <div class="progress fill-x" style="--dur:850ms;--d:350ms"></div>
+      <div class="stages">
+        <div class="stage on" style="--d:350ms"><div class="dot"></div><div class="num">01</div><div class="name">DISCOVER</div></div>
+        <div class="stage on" style="--d:560ms"><div class="dot"></div><div class="num">02</div><div class="name">DEFINE</div></div>
+        <div class="stage on" style="--d:770ms"><div class="dot"></div><div class="num">03</div><div class="name">DESIGN</div></div>
+        <div class="stage on" style="--d:980ms"><div class="dot"></div><div class="num">04</div><div class="name">BUILD</div></div>
+        <div class="stage on" style="--d:1190ms"><div class="dot"></div><div class="num">05</div><div class="name">IMPROVE</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 07 — RESEARCH ============ -->
+<section class="slide light" id="s7" data-fade="400" data-act="ACT 02 · COLLABORATE">
+  <div class="content">
+    <div class="eyebrow rv">RESEARCH</div>
+    <h1 class="disp h1" style="margin-top:26px"><span class="rv rv-d" style="--d:80ms;display:block">FROM RESEARCH TO</span><span class="rv rv-d" style="--d:180ms;display:block">BETTER DECISIONS.</span></h1>
+    <div class="diagram">
+      <div class="panel rv" style="--d:260ms">
+        <div class="plabel">USER FEEDBACK</div>
+        <div class="chip" style="--d:450ms">&#8220;Aku bingung harus mulai dari mana&#8221;</div>
+        <div class="chip" style="--d:590ms">&#8220;Terlalu banyak langkah untuk hal simpel&#8221;</div>
+        <div class="chip" style="--d:730ms">&#8220;Nggak tahu sudah sampai mana&#8221;</div>
+        <div class="chip" style="--d:870ms">&#8220;Istilahnya bikin bingung&#8221;</div>
+      </div>
+      <div class="mid">
+        <div class="tag rv" style="--d:380ms">AI</div>
+        <div class="line fill-x" style="--dur:700ms;--d:480ms"></div>
+      </div>
+      <div class="panel rv" style="--d:300ms">
+        <div class="plabel">KEY INSIGHTS</div>
+        <div class="insight rv" style="--d:900ms"><i></i>Titik awal tidak jelas</div>
+        <div class="insight rv" style="--d:1040ms"><i></i>Proses lebih panjang dari kebutuhannya</div>
+        <div class="insight rv" style="--d:1180ms"><i></i>Status tidak transparan</div>
+      </div>
+    </div>
+    <div class="caption rv" style="--d:1350ms">
+      <span class="a"><em>AI helps find patterns.</em></span>
+      <span class="b">Humans validate the insights.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 08 — DESIGN ============ -->
+<section class="slide dark" id="s8" data-fade="400" data-act="ACT 02 · COLLABORATE">
+  <div class="bg grain"><img class="ph kb" src="assets/07_hands_typing_laptop.png" alt="" style="--kbd:14s"></div>
+  <div class="content">
+    <div class="eyebrow rv">DESIGN</div>
+    <h1 class="disp h1" style="margin-top:28px"><span class="rv rv-d" style="--d:80ms;display:block">FROM IDEAS</span><span class="rv rv-d" style="--d:180ms;display:block">TO INTERFACES.</span></h1>
+    <div class="labels">
+      <span class="rv" style="--d:300ms">EXPLORE</span><span class="sep rv" style="--d:380ms">&#8594;</span>
+      <span class="rv" style="--d:460ms">CREATE</span><span class="sep rv" style="--d:540ms">&#8594;</span>
+      <span class="rv" style="--d:620ms">VALIDATE</span>
+    </div>
+    <div class="showcase">
+      <div class="cards rv-clip" style="--dur:650ms;--d:700ms">
+        <div class="uiwrap">
+          <div class="uicard"><div class="bar"><i></i></div>
+            <div class="frame"><div class="thumbs"><i class="hl"></i><i></i><i></i><i></i><i class="hl"></i><i></i></div></div>
+          </div><div class="tag">EXPLORE</div>
+        </div>
+        <div class="uiwrap">
+          <div class="uicard"><div class="bar"><i></i></div>
+            <div class="frame"><div class="canvas"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div></div>
+          </div><div class="tag">CREATE</div>
+        </div>
+        <div class="uiwrap">
+          <div class="uicard"><div class="bar"><i></i></div>
+            <div class="frame"><div class="checks"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i></i></div><div class="vprog"><i></i></div></div>
+          </div><div class="tag">VALIDATE</div>
+        </div>
+      </div>
+      <div class="caption rv" style="--d:1050ms"><b>AI helps explore design options.</b> Designers shape the experience.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 09 — CASE STUDY ============ -->
+<section class="slide light" id="s9" data-fade="450" data-act="ACT 02 · COLLABORATE">
+  <div class="content">
+    <div class="head">
+      <div>
+        <div class="eyebrow rv">CASE STUDY</div>
+        <h1 class="disp h1" style="margin-top:24px">
+          <span class="rv rv-d" style="--d:80ms;display:block">A SIMPLE TASK.</span>
+          <span class="rv rv-d" style="--d:180ms;display:block">A COMPLEX EXPERIENCE.</span>
+        </h1>
+        <div class="sub rv" style="--d:280ms">Understanding the patient journey.</div>
+      </div>
+      <div class="photo grain rv" style="--d:240ms"><img class="ph" src="assets/09_hospital_wayfinding_sign.png" alt=""></div>
+    </div>
+    <div class="journey rv" style="--d:380ms">
+      <div class="jlabel">
+        <span class="lb">PATIENT JOURNEY</span>
+        <span class="jsteps disp">SEARCH<span class="a">&#8594;</span>CHECK<span class="a">&#8594;</span>BOOK<span class="a">&#8594;</span>CONFIRM</span>
+      </div>
+      <div class="jtrack"><div class="jprog fill-x" style="--dur:1200ms;--d:480ms"></div></div>
+    </div>
+    <div class="cards">
+      <div class="card rv rv-d" style="--d:420ms"><div class="n">01 / SEARCH</div>
+        <div class="tp rv" style="--d:620ms">Finding the right doctor</div>
+        <div class="pp rv" style="--d:680ms">Informasi dokter sulit ditemukan.</div></div>
+      <div class="card rv rv-d" style="--d:560ms"><div class="n">02 / CHECK</div>
+        <div class="tp rv" style="--d:760ms">Checking availability</div>
+        <div class="pp rv" style="--d:820ms">Jadwal praktik kurang jelas.</div></div>
+      <div class="card rv rv-d" style="--d:700ms"><div class="n">03 / BOOK</div>
+        <div class="tp rv" style="--d:900ms">Completing registration</div>
+        <div class="pp rv" style="--d:960ms">Langkah pendaftaran terasa panjang.</div></div>
+      <div class="card rv rv-d" style="--d:840ms"><div class="n">04 / CONFIRM</div>
+        <div class="tp rv" style="--d:1040ms">Getting confirmation</div>
+        <div class="pp rv" style="--d:1100ms">Status booking tidak pasti.</div></div>
+    </div>
+    <div class="bottom">
+      <div class="kick rv" style="--d:1250ms"><span class="bar"></span><span class="t">WHERE CAN WE MAKE IT BETTER?</span></div>
+      <div class="disc rv" style="--d:1350ms">*ILLUSTRATIVE CASE STUDY — NOT ACTUAL PATIENT RESEARCH.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 10 — SOLUTION EXPLORATION ============ -->
+<section class="slide light" id="s10" data-fade="450" data-act="ACT 02 · COLLABORATE">
+  <div class="content">
+    <div class="eyebrow rv">SOLUTION EXPLORATION</div>
+    <h1 class="disp h1" style="margin-top:26px"><span class="rv rv-d" style="--d:80ms;display:block">LESS FRICTION.</span><span class="rv rv-d" style="--d:180ms;display:block">BETTER EXPERIENCE.</span></h1>
+    <div class="duo">
+      <div class="panel before rv-l rv" style="--d:280ms">
+        <div class="phead">BEFORE / COMPLEX</div>
+        <div class="big">5</div>
+        <div class="steps">
+          <div class="step rv" style="--d:380ms"><span class="n">1.</span><span class="t">Search doctor</span></div>
+          <div class="step rv" style="--d:460ms"><span class="n">2.</span><span class="t">Find schedule</span></div>
+          <div class="step rv" style="--d:540ms"><span class="n">3.</span><span class="t">Check availability</span></div>
+          <div class="step rv" style="--d:620ms"><span class="n">4.</span><span class="t">Fill registration</span></div>
+          <div class="step rv" style="--d:700ms"><span class="n">5.</span><span class="t">Wait for confirmation</span></div>
+        </div>
+      </div>
+      <div class="midarrow rv" style="--d:900ms">&#8594;</div>
+      <div class="panel after rv-clip-w" style="--dur:700ms;--d:900ms">
+        <div class="phead">AFTER / SIMPLIFIED</div>
+        <div class="big">3</div>
+        <div class="steps">
+          <div class="step"><span class="n">1.</span><span class="t">Choose doctor</span></div>
+          <div class="step"><span class="n">2.</span><span class="t">Select available slot</span></div>
+          <div class="step"><span class="n">3.</span><span class="t">Confirm appointment</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="kick rv" style="--d:1400ms">AI EXPLORES. <em>HUMANS VALIDATE.</em></div>
+      <div class="disc rv" style="--d:1500ms">*CONCEPTUAL REDESIGN — NOT A VALIDATED RESULT.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 11 — THE HUMAN ROLE ============ -->
+<section class="slide dark" id="s11" data-fade="500" data-act="ACT 03 · CREATE IMPACT">
+  <div class="photo grain"><img class="ph" src="assets/05_solo_figure_wall_shadow.png" alt=""></div>
+  <div class="content">
+    <div class="eyebrow rv">THE HUMAN ROLE</div>
+    <h1 class="disp h1 rv rv-d" style="--d:100ms;margin-top:30px">WHAT AI CANNOT REPLACE.</h1>
+    <div class="rows">
+      <div class="hr-row">
+        <div class="word" style="--d:400ms">EMPATHY</div>
+        <div class="meaning rv" style="--d:500ms">Memahami kebutuhan manusia.</div>
+      </div>
+      <div class="hr-row">
+        <div class="word" style="--d:850ms">JUDGMENT</div>
+        <div class="meaning rv" style="--d:950ms">Mempertimbangkan keputusan.</div>
+      </div>
+      <div class="hr-row">
+        <div class="word" style="--d:1300ms">CONTEXT</div>
+        <div class="meaning rv" style="--d:1400ms">Memahami situasi dan kondisi.</div>
+      </div>
+      <div class="hr-row">
+        <div class="word" style="--d:1750ms">RESPONSIBILITY</div>
+        <div class="meaning rv" style="--d:1850ms">Bertanggung jawab atas dampak.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 12 — CLOSING ============ -->
+<section class="slide dark" id="s12" data-fade="600" data-act="ACT 03 · CREATE IMPACT">
+  <div class="bg grain"><img class="ph kb" src="assets/12_curved_architecture_walkway.png" alt="" style="--kbd:18s"></div>
+  <div class="content">
+    <div class="eyebrow rv" style="--d:150ms">CLOSING</div>
+    <h1 class="disp" style="margin-top:36px">
+      <span class="l1 rv rv-d" style="--d:300ms;display:block">DON&#8217;T JUST BUILD WITH AI.</span>
+      <span class="l2 rv rv-d" style="--d:900ms;display:block">BUILD <b>BETTER</b> WITH AI.</span>
+    </h1>
+    <div class="lead rv" style="--d:1350ms">AI accelerates the process. Humans give it purpose.</div>
+    <div class="thanks rv" style="--d:1600ms">THANK YOU.</div>
+    <div class="identity rv" style="--d:1800ms">
+      <div class="name">Julianto Ahmad Nugraha</div>
+      <div class="event">BANDUNG INNOVATION WEEK 2026</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /stage -->
+</div><!-- /stage-wrap -->
+
+<div id="progress"><i></i></div>
+<div id="zoneL" class="zone" title="Sebelumnya"></div>
+<div id="zoneR" class="zone" title="Berikutnya"></div>
+
+<footer id="hud">
+  <div class="left">HUMAN + AI — BANDUNG INNOVATION WEEK 2026</div>
+  <div class="right">
+    <span class="act" id="hudAct">ACT 01 · UNDERSTAND</span>
+    <span class="num" id="hudNum">01 / 12</span>
+    <button id="btnNotes" type="button">NOTES [N]</button>
+    <button id="btnFull" type="button">FULLSCREEN [F]</button>
+  </div>
+</footer>
+
+<aside id="notes" aria-label="Speaker notes">
+  <h3>SPEAKER NOTES</h3>
+  <div class="nt" id="notesTitle">—</div>
+  <dl id="notesBody"></dl>
+  <div class="status" id="notesStatus"></div>
+  <div class="keys">&#8592;/&#8594; navigasi &nbsp;·&nbsp; F fullscreen &nbsp;·&nbsp; N notes &nbsp;·&nbsp; Esc tutup notes</div>
+</aside>
+
+<div id="blackout"></div>
+
+<script>
+/* ============================================================
+   Data — speaker notes (dipisah dari konten slide)
+   Sumber: Human_AI_Presentation.md (arahan & pacing)
+   ============================================================ */
+const NOTES = {
+  1:{t:"01 · Opening — HUMAN + AI",act:"ACT 01 · UNDERSTAND",layout:"Abstract Statement",pacing:"Bagian 01–02 · ±3 menit (±90 dtk/slide)",
+     arahan:"Komposisi abstrak kuat, tipografi fokus utama, whitespace cukup, aksen lime selektif.",
+     motion:"Headline fade-in + geser vertikal 8–12px; tanda + muncul setelah headline; background slow scale-in halus."},
+  2:{t:"02 · The Shift",act:"ACT 01 · UNDERSTAND",layout:"Split Editorial",pacing:"Bagian 01–02 · ±3 menit (±90 dtk/slide)",
+     arahan:"Dua area perbandingan; tunjukkan evolusi cara kerja — bukan workflow tradisional jadi tidak relevan.",
+     motion:"Dua kolom muncul berurutan (jeda 100–150ms); garis perbandingan bergerak kiri→kanan; highlight lime berpindah ke kolom AI tanpa berkedip."},
+  3:{t:"03 · Product Thinking",act:"ACT 01 · UNDERSTAND",layout:"Typography-led",pacing:"Bagian 03–05 · ±5 menit (±100 dtk/slide)",
+     arahan:"Headline jadi elemen utama; minim dekorasi; kontras & skala tipografi membangun penekanan.",
+     motion:"Kata PROBLEM ditekan via clip reveal; kalimat pendukung muncul setelah headline; parallax halus beberapa piksel."},
+  4:{t:"04 · Collaboration",act:"ACT 01 · UNDERSTAND",layout:"Comparison",pacing:"Bagian 03–05 · ±5 menit (±100 dtk/slide)",
+     arahan:"Dua kelompok kemampuan saling melengkapi; hindari visual kompetisi manusia vs AI.",
+     motion:"Kolom HUMAN & AI masuk dari arah berlawanan (12–16px); daftar muncul bertahap 80–120ms; berhenti seimbang."},
+  5:{t:"05 · Product Team",act:"ACT 01 · UNDERSTAND",layout:"Modular Grid",pacing:"Bagian 03–05 · ±5 menit (±100 dtk/slide)",
+     arahan:"Tiga modul bobot seimbang; kontribusi berbeda tiap peran; fokus kolaborasi antarperan profesional.",
+     motion:"Modul BA/DESIGNER/DEVELOPER muncul berurutan; garis penghubung line-draw; label AI SUPPORTS EVERY ROLE terakhir."},
+  6:{t:"06 · Product Workflow",act:"ACT 02 · COLLABORATE",layout:"Process Timeline",pacing:"Bagian 06–08 · ±6 menit (±120 dtk/slide)",
+     arahan:"Lima tahap satu alur horizontal; label ringkas; hindari deskripsi panjang.",
+     motion:"Lima tahap urut DISCOVER→IMPROVE; progress line terisi kiri→kanan 700–900ms; tiap tahap opacity/aksen saat aktif."},
+  7:{t:"07 · Research",act:"ACT 02 · COLLABORATE",layout:"Split Editorial",pacing:"Bagian 06–08 · ±6 menit (±120 dtk/slide)",
+     arahan:"Hubungan masukan pengguna dan insight; AI menemukan pola, manusia memvalidasi maknanya.",
+     motion:"USER FEEDBACK muncul dulu; potongan feedback bergerak ke KEY INSIGHTS; insight fade-in — hindari kesan diproses ajaib."},
+  8:{t:"08 · Design",act:"ACT 02 · COLLABORATE",layout:"Full-Bleed + UI",pacing:"Bagian 06–08 · ±6 menit (±120 dtk/slide)",
+     arahan:"Visual utama full-bleed + UI showcase; foto grayscale; warna produk pada mockup boleh dipertahankan.",
+     motion:"Slow zoom 1.02–1.04; UI showcase mask reveal lalu stabil; label EXPLORE→CREATE→VALIDATE berurutan."},
+  9:{t:"09 · Case Study",act:"ACT 02 · COLLABORATE",layout:"Modular Grid",pacing:"Bagian 09–10 · ±6 menit (±180 dtk/slide)",
+     arahan:"Patient journey mudah dibaca; pain point di tiap touchpoint; tegaskan contoh ilustratif — bukan riset aktual.",
+     motion:"Empat tahap muncul satu per satu SEARCH→CONFIRM; pain point setelah tahapnya; garis progres pelan."},
+  10:{t:"10 · Solution Exploration",act:"ACT 02 · COLLABORATE",layout:"Before–After",pacing:"Bagian 09–10 · ±6 menit (±180 dtk/slide)",
+     arahan:"Bandingkan alur sebelum vs konsepsederhana; perbedaan jumlah langkah jelas; konsep bukan hasil teruji.",
+     motion:"BEFORE tampil dulu, langkah berurutan; AFTER wipe reveal; fokus selisih langkah; tanpa efek celebratory."},
+  11:{t:"11 · The Human Role",act:"ACT 03 · CREATE IMPACT",layout:"Typography-led / Editorial Statement",pacing:"Bagian 11–12 · ±3 menit (±90 dtk/slide)",
+     arahan:"Tipografi editorial, empat kemampuan manusia fokus; komposisi sederhana & kuat; tanpa ilustrasi robot.",
+     motion:"EMPATHY/JUDGMENT/CONTEXT/RESPONSIBILITY satu per satu; aksen lime sesaat lalu stabil; tempo lebih tenang."},
+  12:{t:"12 · Closing",act:"ACT 03 · CREATE IMPACT",layout:"Abstract Statement",pacing:"Bagian 11–12 · ±3 menit (±90 dtk/slide) + buffer interaksi 2 mnt",
+     arahan:"Fotografi arsitektur abstrak brutalist hitam-putih; tanpa foto manusia/robot; headline fokus utama.",
+     motion:"Background slow pan/zoom; headline dua tahap; kalimat penutup & identitas terakhir; fade to black 500–700ms."}
+};
+const STATUS = "Speaker notes: belum ditulis — perlu dilengkapi sebelum rehearsal. Panel ini menampilkan arahan produksi dari dokumen sumber.";
+
+/* ============================================================
+   Engine
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const N = slides.length;
+const hudNum = document.getElementById('hudNum');
+const hudAct = document.getElementById('hudAct');
+const progress = document.getElementById('progress');
+const notesEl = document.getElementById('notes');
+const stage = document.getElementById('stage');
+const stageWrap = document.getElementById('stage-wrap');
+let cur = 0;
+let leavingTimer = null;
+
+function pad2(n){return String(n).padStart(2,'0')}
+
+function scaleStage(){
+  const hudH = document.body.classList.contains('hud-hidden') ? 0 : 56;
+  const s = Math.min(window.innerWidth/1920, (window.innerHeight-hudH)/1080);
+  stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+}
+window.addEventListener('resize', scaleStage);
+scaleStage();
+
+/* ---------- HUD auto-hide (idle 3s) & fullscreen ---------- */
+let hudTimer = null;
+function wakeHud(){
+  document.body.classList.remove('hud-hidden');
+  scaleStage();
+  clearTimeout(hudTimer);
+  hudTimer = setTimeout(()=>{
+    if (!notesEl.classList.contains('open')) hideHud();
+  }, 3000);
+}
+function hideHud(){
+  document.body.classList.add('hud-hidden');
+  scaleStage();
+}
+['mousemove','mousedown','keydown','touchstart','wheel'].forEach(ev=>
+  window.addEventListener(ev, wakeHud, {passive:true}));
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) wakeHud(); });
+
+function renderNotes(i){
+  const d = NOTES[i+1]; if(!d) return;
+  document.getElementById('notesTitle').textContent = d.t;
+  document.getElementById('notesBody').innerHTML =
+    '<dt>ACT</dt><dd>'+d.act+'</dd>'+
+    '<dt>LAYOUT</dt><dd>'+d.layout+'</dd>'+
+    '<dt>PACING</dt><dd>'+d.pacing+'</dd>'+
+    '<dt>ARAHAN VISUAL</dt><dd>'+d.arahan+'</dd>'+
+    '<dt>MOTION</dt><dd>'+d.motion+'</dd>';
+  document.getElementById('notesStatus').textContent = STATUS;
+}
+
+function show(i, instant){
+  i = Math.max(0, Math.min(N-1, i));
+  const prev = document.querySelector('.slide.is-active');
+  const next = slides[i];
+  if (prev === next){ /* no-op */ }
+  if (prev && prev !== next){
+    prev.classList.remove('is-active');
+    prev.classList.add('is-leaving');
+    prev.style.setProperty('--fade', prev.dataset.fade||'400ms');
+    clearTimeout(leavingTimer);
+    leavingTimer = setTimeout(()=>{ slides.forEach(s=>s.classList.remove('is-leaving')); }, 900);
+  }
+  slides.forEach(s=>{ if(s!==prev){ s.classList.remove('is-leaving'); } });
+  next.style.setProperty('--fade', next.dataset.fade||'400ms');
+  next.classList.add('is-active');
+  next.setAttribute('aria-hidden','false');
+  slides.forEach(s=>{ if(s!==next) s.setAttribute('aria-hidden','true'); });
+  cur = i;
+  document.body.dataset.theme = next.classList.contains('light') ? 'light' : 'dark';
+  hudNum.textContent = pad2(i+1)+' / '+pad2(N);
+  hudAct.textContent = next.dataset.act || '';
+  progress.style.width = (((i+1)/N)*100)+'%';
+  renderNotes(i);
+  if (history.replaceState) history.replaceState(null,'','#'+(i+1));
+}
+
+function nextSlide(){ if(cur===N-1){ endFlash(); return;} show(cur+1); }
+function prevSlide(){ if(cur===0){ return;} show(cur-1); }
+function endFlash(){
+  const b = document.getElementById('blackout');
+  b.classList.add('flash');
+  setTimeout(()=>b.classList.remove('flash'), 750);
+}
+
+/* keyboard */
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='Enter'){e.preventDefault();nextSlide();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prevSlide();}
+  else if(e.key==='Home'){show(0);}
+  else if(e.key==='End'){show(N-1);}
+  else if(e.key==='f'||e.key==='F'){toggleFull();}
+  else if(e.key==='n'||e.key==='N'){toggleNotes();}
+  else if(e.key==='Escape'){notesEl.classList.remove('open');}
+});
+/* click zones */
+document.getElementById('zoneL').addEventListener('click', prevSlide);
+document.getElementById('zoneR').addEventListener('click', nextSlide);
+/* buttons */
+document.getElementById('btnFull').addEventListener('click', toggleFull);
+document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+function toggleFull(){
+  const d = document.documentElement;
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    (d.requestFullscreen||d.webkitRequestFullscreen||function(){}).call(d);
+  } else {
+    (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document);
+  }
+}
+document.addEventListener('fullscreenchange', ()=>{
+  if (document.fullscreenElement) { hideHud(); }
+  else { wakeHud(); }
+});
+function toggleNotes(){ notesEl.classList.toggle('open'); }
+/* swipe */
+let tx=null,ty=null;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(tx===null)return;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.4){ dx<0?nextSlide():prevSlide(); }
+  tx=ty=null;
+},{passive:true});
+
+/* init from hash */
+let start = parseInt(location.hash.replace('#',''),10);
+if(!(start>=1&&start<=N)) start=1;
+show(start-1, true);
+wakeHud();
+</script>
+</body>
+</html>
